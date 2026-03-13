@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Replaced `require()` with ESM import in `tailwind.config.ts`
 - Inlined `actionTypes` const as a type in `use-toast.ts`
 - Replaced `any` casts with proper types in `staking-dashboard.tsx` and `web3-provider.tsx`
+- Deduplicated `use-toast` hook: removed `components/ui/use-toast.ts`, consolidated to `hooks/use-toast.ts`
 
 ## [0.1.0] - 2026-03-13
 

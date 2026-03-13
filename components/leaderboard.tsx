@@ -20,7 +20,7 @@ import {
 import { ethers } from "ethers";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Trophy, Medal, Award, RefreshCw, Loader2, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 

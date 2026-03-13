@@ -3,7 +3,7 @@
 import type React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 // Contract ABIs and addresses
 import dETHAbi from "@/lib/abis/dETH.json";
