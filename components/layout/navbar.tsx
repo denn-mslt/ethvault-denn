@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { ETHVaultLogo } from "@/components/ethvault-logo";
+import { Balance } from "@/components/ui/balance";
 import {
   Tooltip,
   TooltipContent,
@@ -174,6 +175,12 @@ export function Navbar() {
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
 
+                      <div className="px-2 py-2 mb-1">
+                        <Balance />
+                      </div>
+
+                      <DropdownMenuSeparator />
+
                       <div className="px-2 py-2">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-sm font-medium text-lightblue-700">
@@ -264,6 +271,9 @@ export function Navbar() {
                   <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuLabel>Wallet Balances</DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <div className="px-2 py-2">
+                      <Balance />
+                    </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={disconnectWallet}
