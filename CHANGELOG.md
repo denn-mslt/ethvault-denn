@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - Default `.gitignore` for Next.js, Node.js, and environment files
+- Prettier with default rules and `pnpm format` command
+- ESLint with separate configs and commands for frontend and backend
+  - `lint:fe`: TypeScript-ESLint + Next.js core-web-vitals rules
+  - `lint:be`: ESLint recommended with Node.js/browser globals
+  - `lint`: runs both
 
 ## [0.1.0] - 2026-03-13
 
