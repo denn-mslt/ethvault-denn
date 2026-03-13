@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "lint": "pnpm lint:fe && pnpm lint:be",
     "lint:fe": "eslint --config eslint.config.mjs .",
-    "lint:be": "eslint --config eslint.backend.config.mjs backend/"
+    "lint:be": "eslint --config eslint.backend.config.mjs backend/",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -98,10 +99,25 @@
     "concurrently": "^8.2.2",
     "eslint": "^9.39.4",
     "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.3",
     "postcss": "^8",
     "prettier": "^3.8.1",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.57.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --config eslint.config.mjs"
+    ],
+    "backend/**/*.js": [
+      "prettier --write",
+      "eslint --config eslint.backend.config.mjs"
+    ],
+    "*.{json,css,md,mjs}": [
+      "prettier --write"
+    ]
   }
 }

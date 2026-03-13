@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `lint:fe`: TypeScript-ESLint + Next.js core-web-vitals rules
   - `lint:be`: ESLint recommended with Node.js/browser globals
   - `lint`: runs both
+- Husky + lint-staged pre-commit hook: runs prettier and eslint on staged files
 
 ### Fixed
 
