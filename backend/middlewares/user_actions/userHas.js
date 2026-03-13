@@ -32,15 +32,15 @@ module.exports = async (product, user, type) => {
     }
 
     if (type === "product") {
+      // TODO: Fixed duplicate key bug — "tobereturned" was silently overwritten by "return".
+      // Verify with BE dev that all three statuses are correct. This query needs test coverage.
       //has bought?
       hasBought = await Order.findOne({
         user: user,
         $or: [
           { "status.currentStatus": "complete" },
-          {
-            "status.currentStatus": "tobereturned",
-            "status.currentStatus": "return",
-          },
+          { "status.currentStatus": "tobereturned" },
+          { "status.currentStatus": "return" },
         ],
       });
       hasBought ? (hasBought = true) : (hasBought = false);
