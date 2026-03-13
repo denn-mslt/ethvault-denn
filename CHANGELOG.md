@@ -8,22 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Real-time token balance display (ETH, dETH, sETH) in navbar wallet panel
+- `<Balance />` component with `formatBalance` utility (8 decimal precision)
+- `lib/web3/` module: config, types, contracts, balances, ethereum.d.ts
+- `docs/high-level-issues-overview.md` — 9 identified issues across FE, BE, security, DX
+- `docs/WORK_DONE.md` — summary of all work done
 - Default `.gitignore` for Next.js, Node.js, and environment files
 - Prettier with default rules and `pnpm format` command
 - ESLint with separate configs and commands for frontend and backend
-  - `lint:fe`: TypeScript-ESLint + Next.js core-web-vitals rules
-  - `lint:be`: ESLint recommended with Node.js/browser globals
-  - `lint`: runs both
-- Husky + lint-staged pre-commit hook: runs prettier and eslint on staged files
-- Vitest test framework with separate configs for frontend and backend
-  - `test:fe`: Vitest + React Testing Library + jsdom
-  - `test:be`: Vitest + supertest in Node environment
-  - `test`: runs both
-- GitHub Actions CI: prettier (non-blocking), lint, and tests on push/PR
-  - `test`: runs both
+- Husky + lint-staged pre-commit hook
+- Vitest test framework with stub tests for FE and BE
+- GitHub Actions CI workflow (lint + tests on push/PR)
+
+### Changed
+
+- Refactored `web3-provider.tsx` (~495 → ~260 lines) — extracted config, types, contracts, and balance logic into `lib/web3/`
+- Moved providers to `components/providers/`
+- Balances now fetched in parallel via `fetchBalances()` and stored as context state
+- Fixed `removeAllListeners()` → targeted `removeListener()` for ethereum events
 
 ### Fixed
 
+- Removed 30+ debug `console.log` calls from web3-provider
 - Removed unused variables and imports across frontend components
 - Replaced empty interfaces with type aliases (`InputProps`, `TextareaProps`)
 - Replaced `require()` with ESM import in `tailwind.config.ts`
