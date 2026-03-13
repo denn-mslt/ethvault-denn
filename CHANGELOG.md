@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `lint:be`: ESLint recommended with Node.js/browser globals
   - `lint`: runs both
 - Husky + lint-staged pre-commit hook: runs prettier and eslint on staged files
+- Vitest test framework with separate configs for frontend and backend
+  - `test:fe`: Vitest + React Testing Library + jsdom
+  - `test:be`: Vitest + supertest in Node environment
+  - `test`: runs both
 
 ### Fixed
 

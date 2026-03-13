@@ -10,6 +10,9 @@
     "lint": "pnpm lint:fe && pnpm lint:be",
     "lint:fe": "eslint --config eslint.config.mjs .",
     "lint:be": "eslint --config eslint.backend.config.mjs backend/",
+    "test": "pnpm test:fe && pnpm test:be",
+    "test:fe": "vitest run --config vitest.config.ts",
+    "test:be": "vitest run --config vitest.backend.config.mjs",
     "prepare": "husky"
   },
   "dependencies": {
@@ -93,19 +96,26 @@
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@next/eslint-plugin-next": "^16.1.6",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^22.15.31",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18",
+    "@types/supertest": "^7.2.0",
     "concurrently": "^8.2.2",
     "eslint": "^9.39.4",
     "globals": "^17.4.0",
     "husky": "^9.1.7",
+    "jsdom": "^28.1.0",
     "lint-staged": "^16.3.3",
     "postcss": "^8",
     "prettier": "^3.8.1",
+    "supertest": "^7.2.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.57.0"
+    "typescript-eslint": "^8.57.0",
+    "vitest": "^4.1.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
