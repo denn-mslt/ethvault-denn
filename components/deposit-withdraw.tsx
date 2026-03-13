@@ -21,7 +21,7 @@ export function DepositWithdraw() {
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [isDepositing, setIsDepositing] = useState(false);
   const [isWithdrawing, setIsWithdrawing] = useState(false);
-  const [activeTab, setActiveTab] = useState("deposit");
+  const [, setActiveTab] = useState("deposit");
   const { toast } = useToast();
 
   // Refresh balances when component mounts

@@ -15,6 +15,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `lint:be`: ESLint recommended with Node.js/browser globals
   - `lint`: runs both
 
+### Fixed
+
+- Removed unused variables and imports across frontend components
+- Replaced empty interfaces with type aliases (`InputProps`, `TextareaProps`)
+- Replaced `require()` with ESM import in `tailwind.config.ts`
+- Inlined `actionTypes` const as a type in `use-toast.ts`
+
 ## [0.1.0] - 2026-03-13
 
 ### Initial commit, copy of repo.

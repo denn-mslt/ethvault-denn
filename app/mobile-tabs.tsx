@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MobileTabs() {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [, setScrollPosition] = useState(0);
   const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {

@@ -27,7 +27,7 @@ export function StakeUnstake() {
   const [allowance, setAllowance] = useState("0");
   const [isApproving, setIsApproving] = useState(false);
   const [isCheckingAllowance, setIsCheckingAllowance] = useState(false);
-  const [activeTab, setActiveTab] = useState("stake");
+  const [, setActiveTab] = useState("stake");
   const { toast } = useToast();
 
   // Fungsi untuk memeriksa allowance dengan penanganan error yang lebih baik

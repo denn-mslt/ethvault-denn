@@ -21,12 +21,11 @@ export function StakingDashboard() {
     isConnected,
     account,
     refreshBalances,
-    ethBalance,
     dETHBalance,
     sETHBalance,
   } = useWeb3();
   const [mounted, setMounted] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [overview, setOverview] = useState({
     totalETHDeposited: "0",
@@ -34,7 +33,7 @@ export function StakingDashboard() {
     totalStakers: "0",
     averageStakeAmount: "0",
   });
-  const [userStats, setUserStats] = useState({
+  const [, setUserStats] = useState({
     stakedAmount: "0",
     stakingTimestamp: "0",
     rank: "0",

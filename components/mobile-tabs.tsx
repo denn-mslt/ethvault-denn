@@ -14,7 +14,7 @@ import { Leaderboard } from "@/components/leaderboard";
 import { Governance } from "@/components/governance";
 
 export function MobileTabs() {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [, setScrollPosition] = useState(0);
   const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {

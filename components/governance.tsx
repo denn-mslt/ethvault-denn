@@ -45,9 +45,7 @@ type Proposal = {
 export function Governance() {
   const {
     governanceContract,
-    sETHContract,
     isConnected,
-    connectWallet,
     account,
     sETHBalance,
   } = useWeb3();

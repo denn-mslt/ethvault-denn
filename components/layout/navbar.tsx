@@ -40,7 +40,6 @@ export function Navbar() {
     connectWallet,
     disconnectWallet,
     isConnected,
-    networkName,
     refreshBalances,
   } = useWeb3();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -69,10 +68,6 @@ export function Navbar() {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
-
-  const formatBalance = (balance: string) => {
-    return Number.parseFloat(balance).toFixed(4);
-  };
 
   const copyAddress = () => {
     if (account) {

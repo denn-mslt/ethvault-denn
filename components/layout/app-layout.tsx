@@ -31,7 +31,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     dETHBalance,
     sETHBalance,
     refreshBalances,
-    networkName,
   } = useWeb3();
   const { theme, setTheme } = useTheme();
   const [isRefreshing, setIsRefreshing] = useState(false);
