@@ -1,4 +1,5 @@
 "use client";
+// TODO: This component is not used anywhere. Either remove it or refactor.
 
 import { Button } from "@/components/ui/button";
 import { useWeb3 } from "@/components/web3-provider";
