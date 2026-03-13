@@ -1,6 +1,6 @@
 "use client";
 
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 
 export function Balance() {
   const { isConnected, ethBalance, dETHBalance, sETHBalance } = useWeb3();

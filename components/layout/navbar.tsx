@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import { Button } from "@/components/ui/button";
 import {
   Menu,

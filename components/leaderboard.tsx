@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import {
   Card,
   CardContent,

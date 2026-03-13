@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import { ethers } from "ethers";
 import {
   Wallet,
@@ -66,8 +66,18 @@ export function StakingDashboard() {
             ) {
               const callRes = await providerInstance.call({
                 to:
-                  (stakingDashboardContract as unknown as { target?: string; address?: string }).target ??
-                  (stakingDashboardContract as unknown as { target?: string; address?: string }).address,
+                  (
+                    stakingDashboardContract as unknown as {
+                      target?: string;
+                      address?: string;
+                    }
+                  ).target ??
+                  (
+                    stakingDashboardContract as unknown as {
+                      target?: string;
+                      address?: string;
+                    }
+                  ).address,
                 data,
               });
               console.log("provider.call result (raw):", callRes);

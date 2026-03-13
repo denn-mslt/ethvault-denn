@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import {
   LayoutDashboard,
   ArrowDownToLine,

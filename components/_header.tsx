@@ -2,7 +2,7 @@
 // TODO: This component is not used anywhere. Either remove it or refactor.
 
 import { Button } from "@/components/ui/button";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import { MoonIcon, SunIcon, RefreshCw } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";

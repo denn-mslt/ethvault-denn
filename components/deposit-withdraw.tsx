@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ethers } from "ethers";

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Loader2, MoonIcon, SunIcon } from "lucide-react";

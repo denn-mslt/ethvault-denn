@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useWeb3 } from "@/components/web3-provider";
+import { useWeb3 } from "@/components/providers/web3-provider";
 import {
   Card,
   CardContent,
@@ -43,12 +43,7 @@ type Proposal = {
 };
 
 export function Governance() {
-  const {
-    governanceContract,
-    isConnected,
-    account,
-    sETHBalance,
-  } = useWeb3();
+  const { governanceContract, isConnected, account, sETHBalance } = useWeb3();
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [loading, setLoading] = useState(true);
   const [description, setDescription] = useState("");
