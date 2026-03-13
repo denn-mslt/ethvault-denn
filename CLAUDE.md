@@ -17,12 +17,12 @@ ETHVault is a decentralized Ethereum staking and governance platform. Users conn
 
 ### Smart Contracts (`contracts/`) — Solidity
 
-| Contract | Token | Purpose |
-|---|---|---|
-| `dETH.sol` | dETH (ERC20) | Deposit ETH, receive dETH |
-| `sETH.sol` | sETH (ERC20) | Stake dETH, receive sETH |
-| `Governance.sol` | — | Proposal creation, voting, execution |
-| `StakingDashboard.sol` | — | Stats & leaderboard |
+| Contract               | Token        | Purpose                              |
+| ---------------------- | ------------ | ------------------------------------ |
+| `dETH.sol`             | dETH (ERC20) | Deposit ETH, receive dETH            |
+| `sETH.sol`             | sETH (ERC20) | Stake dETH, receive sETH             |
+| `Governance.sol`       | —            | Proposal creation, voting, execution |
+| `StakingDashboard.sol` | —            | Stats & leaderboard                  |
 
 ### Backend (`backend/`) — Express.js + MongoDB
 
@@ -54,9 +54,9 @@ pnpm dev          # starts both frontend (Next.js) and backend (Express) via con
 6. **One concern per change.** Each change should address a single concern. Don't bundle unrelated fixes together.
 7. **Always run linter and tests after changing code.** After every code change, run the linter and test suite before considering the task done. Fix any issues before moving on.
 8. **Verify, don't assume.** If no tests exist for the area you changed, suggest adding them.
-8. **Preserve existing patterns.** Match the style, naming conventions, and architecture already in the codebase. Don't introduce new patterns without discussion.
-9. **Be explicit about uncertainty.** If you're unsure about the impact of a change or the correct approach, say so. Propose options rather than guessing.
-10. **No secrets in code.** Never hardcode API keys, private keys, passwords, or other secrets. Use environment variables.
+9. **Preserve existing patterns.** Match the style, naming conventions, and architecture already in the codebase. Don't introduce new patterns without discussion.
+10. **Be explicit about uncertainty.** If you're unsure about the impact of a change or the correct approach, say so. Propose options rather than guessing.
+11. **No secrets in code.** Never hardcode API keys, private keys, passwords, or other secrets. Use environment variables.
 
 ---
 
@@ -87,6 +87,6 @@ pnpm dev          # starts both frontend (Next.js) and backend (Express) via con
 
 - **Atomic commits** — each commit should be a single logical change that builds and works
 - **Commit messages fromat** — ALWAYS use use Conventional Commits for commit messages. ALWAYS state domain in ().
-- **Descriptive commit messages** — explain *why*, not just *what*
+- **Descriptive commit messages** — explain _why_, not just _what_
 - **Branch per feature** — don't work directly on `main` for non-trivial changes
 - **Update CHANGELOG.md** for every user-facing change

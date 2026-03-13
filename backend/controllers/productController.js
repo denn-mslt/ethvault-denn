@@ -202,13 +202,13 @@ exports.createProductReview = asyncErrorHandler(async (req, res, next) => {
     return next(new ErrorHandler("Product Not Found", 404));
   }
   const isReviewed = product.reviews.find(
-    (review) => review.user.toString() === req.user._id.toString()
+    (review) => review.user.toString() === req.user._id.toString(),
   );
 
   if (isReviewed) {
     product.reviews.forEach((rev) => {
       if (rev.user.toString() === req.user._id.toString())
-        (rev.rating = rating), (rev.comment = comment);
+        ((rev.rating = rating), (rev.comment = comment));
     });
   } else {
     product.reviews.push(review);
@@ -247,7 +247,7 @@ exports.deleteReview = asyncErrorHandler(async (req, res, next) => {
     return next(new ErrorHandler("Product Not Found", 404));
   }
   const reviews = product.reviews.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
+    (rev) => rev._id.toString() !== req.query.id.toString(),
   );
   let avg = 0;
 
@@ -273,7 +273,7 @@ exports.deleteReview = asyncErrorHandler(async (req, res, next) => {
       new: true,
       runValidators: true,
       useFindAndModify: false,
-    }
+    },
   );
   res.status(200).json({
     success: true,

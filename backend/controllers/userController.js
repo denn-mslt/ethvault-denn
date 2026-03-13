@@ -89,7 +89,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
 
   // const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
   const resetPasswordUrl = `https://${req.get(
-    "host"
+    "host",
   )}/password/reset/${resetToken}`;
 
   // const message = `Your password reset token is : \n\n ${resetPasswordUrl}`;
@@ -211,7 +211,7 @@ exports.getSingleUser = asyncErrorHandler(async (req, res, next) => {
 
   if (!user) {
     return next(
-      new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404)
+      new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404),
     );
   }
   res.status(200).json({
@@ -244,7 +244,7 @@ exports.deleteUser = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(
-      new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404)
+      new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404),
     );
   }
   await user.remove();

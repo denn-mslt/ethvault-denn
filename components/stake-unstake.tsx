@@ -1,26 +1,34 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useWeb3 } from "@/components/web3-provider"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ethers } from "ethers"
-import { useToast } from "@/components/ui/use-toast"
-import { Layers, ArrowUpFromLine, Loader2, AlertCircle } from "lucide-react"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState, useEffect } from "react";
+import { useWeb3 } from "@/components/web3-provider";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ethers } from "ethers";
+import { useToast } from "@/components/ui/use-toast";
+import { Layers, ArrowUpFromLine, Loader2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function StakeUnstake() {
-  const { dETHContract, sETHContract, isConnected, dETHBalance, sETHBalance, refreshBalances, account } = useWeb3()
-  const [stakeAmount, setStakeAmount] = useState("")
-  const [unstakeAmount, setUnstakeAmount] = useState("")
-  const [isStaking, setIsStaking] = useState(false)
-  const [isUnstaking, setIsUnstaking] = useState(false)
-  const [allowance, setAllowance] = useState("0")
-  const [isApproving, setIsApproving] = useState(false)
-  const [isCheckingAllowance, setIsCheckingAllowance] = useState(false)
-  const [activeTab, setActiveTab] = useState("stake")
-  const { toast } = useToast()
+  const {
+    dETHContract,
+    sETHContract,
+    isConnected,
+    dETHBalance,
+    sETHBalance,
+    refreshBalances,
+    account,
+  } = useWeb3();
+  const [stakeAmount, setStakeAmount] = useState("");
+  const [unstakeAmount, setUnstakeAmount] = useState("");
+  const [isStaking, setIsStaking] = useState(false);
+  const [isUnstaking, setIsUnstaking] = useState(false);
+  const [allowance, setAllowance] = useState("0");
+  const [isApproving, setIsApproving] = useState(false);
+  const [isCheckingAllowance, setIsCheckingAllowance] = useState(false);
+  const [activeTab, setActiveTab] = useState("stake");
+  const { toast } = useToast();
 
   // Fungsi untuk memeriksa allowance dengan penanganan error yang lebih baik
   const checkAllowance = async () => {
@@ -30,98 +38,102 @@ export function StakeUnstake() {
         hasSETHContract: !!sETHContract,
         isConnected,
         account,
-      })
-      return
+      });
+      return;
     }
 
     try {
-      setIsCheckingAllowance(true)
+      setIsCheckingAllowance(true);
 
       // Pastikan sETHContract.address tidak null
-      const sETHAddress = sETHContract.target || sETHContract.address
+      const sETHAddress = sETHContract.target || sETHContract.address;
 
       if (!sETHAddress) {
-        console.error("sETH contract address is null or undefined")
-        return
+        console.error("sETH contract address is null or undefined");
+        return;
       }
 
       console.log("Checking allowance for:", {
         owner: account,
         spender: sETHAddress,
-      })
+      });
 
-      const currentAllowance = await dETHContract.allowance(account, sETHAddress)
-      console.log("Current allowance:", ethers.formatEther(currentAllowance))
+      const currentAllowance = await dETHContract.allowance(
+        account,
+        sETHAddress,
+      );
+      console.log("Current allowance:", ethers.formatEther(currentAllowance));
 
-      setAllowance(ethers.formatEther(currentAllowance))
+      setAllowance(ethers.formatEther(currentAllowance));
     } catch (error) {
-      console.error("Error checking allowance:", error)
+      console.error("Error checking allowance:", error);
     } finally {
-      setIsCheckingAllowance(false)
+      setIsCheckingAllowance(false);
     }
-  }
+  };
 
   // Periksa allowance saat komponen dimuat atau saat data yang diperlukan berubah
   useEffect(() => {
-    checkAllowance()
-  }, [dETHContract, sETHContract, isConnected, account])
+    checkAllowance();
+  }, [dETHContract, sETHContract, isConnected, account]);
 
   const handleApprove = async () => {
-    if (!dETHContract || !sETHContract) return
+    if (!dETHContract || !sETHContract) return;
 
     try {
-      setIsApproving(true)
+      setIsApproving(true);
 
       // Pastikan sETHContract.address tidak null
-      const sETHAddress = sETHContract.target || sETHContract.address
+      const sETHAddress = sETHContract.target || sETHContract.address;
 
       if (!sETHAddress) {
         toast({
           title: "Error",
           description: "Cannot get sETH contract address",
           variant: "destructive",
-        })
-        return
+        });
+        return;
       }
 
       // Gunakan MaxUint256 dari ethers v6
-      const maxUint256 = ethers.MaxUint256
+      const maxUint256 = ethers.MaxUint256;
 
-      console.log("Approving sETH contract:", sETHAddress)
-      const tx = await dETHContract.approve(sETHAddress, maxUint256)
+      console.log("Approving sETH contract:", sETHAddress);
+      const tx = await dETHContract.approve(sETHAddress, maxUint256);
 
       toast({
         title: "Approval Submitted",
         description: "Your approval transaction has been submitted.",
-      })
+      });
 
-      await tx.wait()
+      await tx.wait();
 
       // Update allowance
-      await checkAllowance()
+      await checkAllowance();
 
       toast({
         title: "Approval Successful",
         description: "You can now stake your dETH tokens.",
-      })
+      });
     } catch (error) {
-      console.error("Error approving tokens:", error)
+      console.error("Error approving tokens:", error);
       toast({
         title: "Approval Failed",
-        description: "There was an error approving your tokens. Please try again.",
+        description:
+          "There was an error approving your tokens. Please try again.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsApproving(false)
+      setIsApproving(false);
     }
-  }
+  };
 
   const handleStake = async () => {
-    if (!sETHContract || !stakeAmount) return
+    if (!sETHContract || !stakeAmount) return;
 
     try {
-      setIsStaking(true)
-      const amount = ethers.parseEther(stakeAmount)
+      setIsStaking(true);
+      const amount = ethers.parseEther(stakeAmount);
 
       // Check if user has enough dETH
       if (Number.parseFloat(dETHBalance) < Number.parseFloat(stakeAmount)) {
@@ -129,8 +141,8 @@ export function StakeUnstake() {
           title: "Insufficient dETH Balance",
           description: "You don't have enough dETH to stake this amount.",
           variant: "destructive",
-        })
-        return
+        });
+        return;
       }
 
       // Check if allowance is sufficient
@@ -139,44 +151,45 @@ export function StakeUnstake() {
           title: "Insufficient Allowance",
           description: "Please approve dETH tokens before staking.",
           variant: "destructive",
-        })
-        return
+        });
+        return;
       }
 
-      const tx = await sETHContract.stake(amount)
+      const tx = await sETHContract.stake(amount);
       toast({
         title: "Transaction Submitted",
         description: "Your staking transaction has been submitted.",
-      })
+      });
 
-      await tx.wait()
+      await tx.wait();
 
       toast({
         title: "Staking Successful",
         description: `Successfully staked ${stakeAmount} dETH and received sETH.`,
-      })
+      });
 
-      setStakeAmount("")
-      refreshBalances()
-      checkAllowance()
+      setStakeAmount("");
+      refreshBalances();
+      checkAllowance();
     } catch (error) {
-      console.error("Error staking dETH:", error)
+      console.error("Error staking dETH:", error);
       toast({
         title: "Staking Failed",
-        description: "There was an error processing your stake. Please try again.",
+        description:
+          "There was an error processing your stake. Please try again.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsStaking(false)
+      setIsStaking(false);
     }
-  }
+  };
 
   const handleUnstake = async () => {
-    if (!sETHContract || !unstakeAmount) return
+    if (!sETHContract || !unstakeAmount) return;
 
     try {
-      setIsUnstaking(true)
-      const amount = ethers.parseEther(unstakeAmount)
+      setIsUnstaking(true);
+      const amount = ethers.parseEther(unstakeAmount);
 
       // Check if user has enough sETH
       if (Number.parseFloat(sETHBalance) < Number.parseFloat(unstakeAmount)) {
@@ -184,62 +197,69 @@ export function StakeUnstake() {
           title: "Insufficient sETH Balance",
           description: "You don't have enough sETH to unstake this amount.",
           variant: "destructive",
-        })
-        return
+        });
+        return;
       }
 
-      const tx = await sETHContract.unstake(amount)
+      const tx = await sETHContract.unstake(amount);
       toast({
         title: "Transaction Submitted",
         description: "Your unstaking transaction has been submitted.",
-      })
+      });
 
-      await tx.wait()
+      await tx.wait();
 
       toast({
         title: "Unstaking Successful",
         description: `Successfully unstaked ${unstakeAmount} sETH and received dETH.`,
-      })
+      });
 
-      setUnstakeAmount("")
-      refreshBalances()
-      checkAllowance()
+      setUnstakeAmount("");
+      refreshBalances();
+      checkAllowance();
     } catch (error) {
-      console.error("Error unstaking sETH:", error)
+      console.error("Error unstaking sETH:", error);
       toast({
         title: "Unstaking Failed",
-        description: "There was an error processing your unstake. Please try again.",
+        description:
+          "There was an error processing your unstake. Please try again.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsUnstaking(false)
+      setIsUnstaking(false);
     }
-  }
+  };
 
   const setMaxStake = () => {
-    setStakeAmount(dETHBalance)
-  }
+    setStakeAmount(dETHBalance);
+  };
 
   const setMaxUnstake = () => {
-    setUnstakeAmount(sETHBalance)
-  }
+    setUnstakeAmount(sETHBalance);
+  };
 
   if (!isConnected) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
         <div className="text-center">
           <h2 className="text-xl font-semibold mb-2">Connect Your Wallet</h2>
-          <p className="text-lightblue-600 mb-4">Please connect your wallet to access staking features.</p>
+          <p className="text-lightblue-600 mb-4">
+            Please connect your wallet to access staking features.
+          </p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div>
       <h1 className="page-title">Stake & Unstake</h1>
 
-      <Tabs defaultValue="stake" onValueChange={setActiveTab} className="w-full">
+      <Tabs
+        defaultValue="stake"
+        onValueChange={setActiveTab}
+        className="w-full"
+      >
         <TabsList className="grid w-full grid-cols-2 mb-6">
           <TabsTrigger value="stake">Stake</TabsTrigger>
           <TabsTrigger value="unstake">Unstake</TabsTrigger>
@@ -251,11 +271,15 @@ export function StakeUnstake() {
               <Layers className="h-5 w-5 mr-2 text-lightblue-500" />
               Stake dETH
             </h2>
-            <p className="text-lightblue-700 mb-6">Stake your dETH tokens and receive sETH tokens.</p>
+            <p className="text-lightblue-700 mb-6">
+              Stake your dETH tokens and receive sETH tokens.
+            </p>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2 text-lightblue-900">Amount</label>
+                <label className="block text-sm font-medium mb-2 text-lightblue-900">
+                  Amount
+                </label>
                 <div className="relative">
                   <Input
                     type="number"
@@ -265,14 +289,19 @@ export function StakeUnstake() {
                     className="input-amount pr-16"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <span className="text-sm font-medium text-lightblue-700">dETH</span>
+                    <span className="text-sm font-medium text-lightblue-700">
+                      dETH
+                    </span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-2 text-sm">
                   <span className="text-lightblue-700">
                     Available: {Number.parseFloat(dETHBalance).toFixed(4)} dETH
                   </span>
-                  <button onClick={setMaxStake} className="text-lightblue-500 hover:underline">
+                  <button
+                    onClick={setMaxStake}
+                    className="text-lightblue-500 hover:underline"
+                  >
                     Max
                   </button>
                 </div>
@@ -282,7 +311,8 @@ export function StakeUnstake() {
                 <Alert className="bg-lightblue-50 border-lightblue-200 text-lightblue-800">
                   <AlertCircle className="h-4 w-4 text-lightblue-500" />
                   <AlertDescription className="font-medium">
-                    You need to approve dETH tokens before staking. This is a one-time approval.
+                    You need to approve dETH tokens before staking. This is a
+                    one-time approval.
                   </AlertDescription>
                 </Alert>
               )}
@@ -341,11 +371,15 @@ export function StakeUnstake() {
               <ArrowUpFromLine className="h-5 w-5 mr-2 text-lightblue-500" />
               Unstake sETH
             </h2>
-            <p className="text-lightblue-700 mb-6">Unstake your sETH tokens and receive dETH tokens.</p>
+            <p className="text-lightblue-700 mb-6">
+              Unstake your sETH tokens and receive dETH tokens.
+            </p>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2 text-lightblue-900">Amount</label>
+                <label className="block text-sm font-medium mb-2 text-lightblue-900">
+                  Amount
+                </label>
                 <div className="relative">
                   <Input
                     type="number"
@@ -355,14 +389,19 @@ export function StakeUnstake() {
                     className="input-amount pr-16"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <span className="text-sm font-medium text-lightblue-700">sETH</span>
+                    <span className="text-sm font-medium text-lightblue-700">
+                      sETH
+                    </span>
                   </div>
                 </div>
                 <div className="flex justify-between mt-2 text-sm">
                   <span className="text-lightblue-700">
                     Available: {Number.parseFloat(sETHBalance).toFixed(4)} sETH
                   </span>
-                  <button onClick={setMaxUnstake} className="text-lightblue-500 hover:underline">
+                  <button
+                    onClick={setMaxUnstake}
+                    className="text-lightblue-500 hover:underline"
+                  >
                     Max
                   </button>
                 </div>
@@ -370,7 +409,11 @@ export function StakeUnstake() {
 
               <Button
                 onClick={handleUnstake}
-                disabled={!unstakeAmount || isUnstaking || Number.parseFloat(unstakeAmount) <= 0}
+                disabled={
+                  !unstakeAmount ||
+                  isUnstaking ||
+                  Number.parseFloat(unstakeAmount) <= 0
+                }
                 className="primary-button"
               >
                 {isUnstaking ? (
@@ -390,5 +433,5 @@ export function StakeUnstake() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

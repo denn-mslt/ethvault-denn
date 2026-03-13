@@ -20,7 +20,7 @@ module.exports = async (io, adminId, notificationObj) => {
     if (notificationObjOfAdmin.noOfUnseen < 20 && notifications.length > 20) {
       notificationObjOfAdmin.notifications = dropRight(
         notifications,
-        notifications.length - 20
+        notifications.length - 20,
       );
     }
     await notificationObjOfAdmin.save();

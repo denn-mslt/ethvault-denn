@@ -2,7 +2,6 @@
 
 ETHVault is a decentralized platform for Ethereum staking, governance, and participation in the Ethereum ecosystem. It allows users to stake ETH, earn rewards, and vote on proposals that shape the future of the protocol.
 
-
 ## Technology Stack
 
 - **Frontend**: Next.js, React, TypeScript, Tailwind CSS
@@ -29,11 +28,13 @@ The platform is built on four main smart contracts:
 ### Installation
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Run the development server:
+
    ```bash
    npm run dev
    ```

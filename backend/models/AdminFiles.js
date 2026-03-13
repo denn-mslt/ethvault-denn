@@ -8,6 +8,6 @@ const adminFileSchema = new mongoose.Schema(
     },
     fileUri: String,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 module.exports = mongoose.model("adminfile", adminFileSchema);

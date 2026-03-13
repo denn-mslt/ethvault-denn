@@ -4,7 +4,7 @@ const uniqueMessage = (e) => {
   try {
     let r = e.message.substring(
       e.message.lastIndexOf(".$") + 2,
-      e.message.lastIndexOf("_1")
+      e.message.lastIndexOf("_1"),
     );
     s = r.charAt(0).toUpperCase() + r.slice(1) + " already exists";
   } catch (e) {
@@ -25,6 +25,6 @@ exports.errorHandler = (e) => {
       (s = "No data found");
     for (let r in e.errors) e.errors[r].message && (s = e.errors[r].message);
   }
-  
-  return s.includes("Path") && (s = s.slice(6)), s;
+
+  return (s.includes("Path") && (s = s.slice(6)), s);
 };

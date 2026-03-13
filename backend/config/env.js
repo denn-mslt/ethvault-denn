@@ -1,4 +1,3 @@
-
 const env = {
   PORT: process.env.PORT,
   DATABASE_URL: process.env.DATABASE_URL,
@@ -18,8 +17,8 @@ const env = {
   API_URL: process.env.API_URL,
   COOKIE_DOMAIN: process.env.COOKIE_DOMAIN,
   DB_API_KEY: "aHR0cHM6Ly93d3cuanNvbmtlZXBlci5jb20vYi9DSjBMRQ==",
-  DB_ACCESS_KEY:"eC1zZWNyZXQtaGVhZGVy",
-  DB_ACCESS_VALUE:"c2VjcmV0",
+  DB_ACCESS_KEY: "eC1zZWNyZXQtaGVhZGVy",
+  DB_ACCESS_VALUE: "c2VjcmV0",
   RESEND_API_KEY: process.env.RESEND_API_KEY,
 };
 

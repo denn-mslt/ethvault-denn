@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useWeb3 } from "@/components/web3-provider"
-import { Sidebar } from "@/components/layout/sidebar"
-import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
-import { useState, useEffect } from "react"
-import { ETHVaultLogo } from "@/components/ethvault-logo"
+import type React from "react";
+import { useWeb3 } from "@/components/web3-provider";
+import { Sidebar } from "@/components/layout/sidebar";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ETHVaultLogo } from "@/components/ethvault-logo";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  const { connectWallet, isConnected } = useWeb3()
-  const [showMobileSidebar, setShowMobileSidebar] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const { connectWallet, isConnected } = useWeb3();
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <div className="flex min-h-screen bg-lightblue-50">
@@ -29,7 +29,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       {/* Mobile Sidebar */}
       {showMobileSidebar && (
         <div className="fixed inset-0 z-50 md:hidden">
-          <div className="fixed inset-0 bg-black/30" onClick={() => setShowMobileSidebar(false)} />
+          <div
+            className="fixed inset-0 bg-black/30"
+            onClick={() => setShowMobileSidebar(false)}
+          />
           <div className="fixed inset-y-0 left-0 w-64 bg-lightblue-300">
             <Sidebar />
           </div>
@@ -40,7 +43,12 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <div className="flex-1 md:ml-64">
         {/* Mobile Header */}
         <header className="md:hidden flex items-center justify-between p-4 bg-lightblue-300 text-lightblue-950">
-          <Button variant="ghost" size="icon" onClick={() => setShowMobileSidebar(true)} className="text-lightblue-950">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowMobileSidebar(true)}
+            className="text-lightblue-950"
+          >
             <Menu className="h-6 w-6" />
           </Button>
           <div className="flex items-center gap-2">
@@ -56,11 +64,18 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-lightblue-100 mb-6">
                 <ETHVaultLogo size="lg" />
               </div>
-              <h2 className="text-2xl font-bold mb-2 text-lightblue-950">Connect Your Wallet</h2>
+              <h2 className="text-2xl font-bold mb-2 text-lightblue-950">
+                Connect Your Wallet
+              </h2>
               <p className="text-lightblue-700 mb-6">
-                Please connect your wallet to access the ETHVault staking and governance features.
+                Please connect your wallet to access the ETHVault staking and
+                governance features.
               </p>
-              <Button onClick={connectWallet} size="lg" className="connect-button">
+              <Button
+                onClick={connectWallet}
+                size="lg"
+                className="connect-button"
+              >
                 Connect Wallet
               </Button>
             </div>
@@ -70,5 +85,5 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </div>
-  )
+  );
 }

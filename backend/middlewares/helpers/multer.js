@@ -14,7 +14,7 @@ const storageByUser = multer.diskStorage({
         req.user._id +
         "-" +
         Date.now() +
-        path.extname(file.originalname)
+        path.extname(file.originalname),
     );
   },
 });
@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
         req.profile._id +
         "-" +
         Date.now() +
-        path.extname(file.originalname)
+        path.extname(file.originalname),
     );
   },
 });
@@ -50,7 +50,7 @@ const storageBySuperAdmin = multer.diskStorage({
         req.admin._id +
         "-" +
         Date.now() +
-        path.extname(file.originalname)
+        path.extname(file.originalname),
     );
   },
 });
@@ -60,16 +60,15 @@ const fileFilter = (req, file, callback) => {
   if (ext !== ".png" && ext !== ".jpg" && ext !== ".JPG" && ext !== ".jpeg") {
     return callback(new Error("Not Image"));
   }
-  
+
   callback(null, true);
 };
 
 const limits = { fileSize: 2480 * 3230 };
 
-
 exports.uploadAdminDoc = multer({ storage, fileFilter, limits }).single("doc");
 exports.uploadAdminPhoto = multer({ storage, fileFilter, limits }).single(
-  "photo"
+  "photo",
 );
 exports.uploadUserPhoto = multer({
   storage: storageByUser,
@@ -79,7 +78,7 @@ exports.uploadUserPhoto = multer({
 
 exports.uploadProductImages = multer({ storage, fileFilter, limits }).array(
   "productImages",
-  5
+  5,
 );
 exports.uploadBannerPhoto = multer({
   storage: storageBySuperAdmin,

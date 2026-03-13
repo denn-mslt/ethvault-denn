@@ -1,14 +1,14 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Web3Provider } from "@/components/web3-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { Navbar } from "@/components/layout/navbar"
-import { Footer } from "@/components/layout/footer"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Web3Provider } from "@/components/web3-provider";
+import { Toaster } from "@/components/ui/toaster";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ETHVault | Secure Ethereum Staking & Governance",
@@ -21,13 +21,13 @@ export const metadata: Metadata = {
         type: "image/svg+xml",
       },
     ],
-  }
-}
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -35,7 +35,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Web3Provider>
             <div className="flex flex-col min-h-screen">
               <Navbar />
@@ -47,5 +52,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

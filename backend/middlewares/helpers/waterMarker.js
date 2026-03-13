@@ -32,9 +32,9 @@ module.exports = async (req, res, next) => {
       main.getWidth(),
       watermark.getHeight(),
       watermark.getWidth(),
-      options.ratio
+      options.ratio,
     );
-    
+
     watermark.resize(newWidth, newHeight);
     const positionX = (main.getWidth() - newWidth) / 2 + 250;
     const positionY = (main.getHeight() - newHeight) / 2 + 200;
@@ -43,7 +43,7 @@ module.exports = async (req, res, next) => {
       watermark,
       positionX,
       positionY,
-      Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+      Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE,
     );
     return main.quality(100).write(imagePath);
   });

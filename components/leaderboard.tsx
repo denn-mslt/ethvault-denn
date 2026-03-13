@@ -1,129 +1,152 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useWeb3 } from "@/components/web3-provider"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { ethers } from "ethers"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/components/ui/use-toast"
-import { Trophy, Medal, Award, RefreshCw, Loader2, Users } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useState } from "react";
+import { useWeb3 } from "@/components/web3-provider";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ethers } from "ethers";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { Trophy, Medal, Award, RefreshCw, Loader2, Users } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export function Leaderboard() {
-  const { stakingDashboardContract, sETHContract, isConnected, account } = useWeb3()
-  const [loading, setLoading] = useState(true)
+  const { stakingDashboardContract, sETHContract, isConnected, account } =
+    useWeb3();
+  const [loading, setLoading] = useState(true);
   const [leaderboard, setLeaderboard] = useState<{
-    addresses: string[]
-    amounts: string[]
-    percentages: string[]
+    addresses: string[];
+    amounts: string[];
+    percentages: string[];
   }>({
     addresses: [],
     amounts: [],
     percentages: [],
-  })
-  const [isUpdating, setIsUpdating] = useState(false)
+  });
+  const [isUpdating, setIsUpdating] = useState(false);
   const [stats, setStats] = useState({
     totalStaked: "0",
     totalStakers: "0",
-  })
-  const { toast } = useToast()
+  });
+  const { toast } = useToast();
 
   const fetchLeaderboard = async () => {
     if (stakingDashboardContract) {
       try {
-        setLoading(true)
+        setLoading(true);
 
         // Get staking overview
-        const overview = await stakingDashboardContract.getStakingOverview()
+        const overview = await stakingDashboardContract.getStakingOverview();
         setStats({
           totalStaked: ethers.formatEther(overview.totalETHStaked),
           totalStakers: overview.totalStakers.toString(),
-        })
+        });
 
         // Get top 10 stakers
-        const leaderboardData = await stakingDashboardContract.getLeaderboard(10)
+        const leaderboardData =
+          await stakingDashboardContract.getLeaderboard(10);
 
-        const addresses = leaderboardData.stakerAddresses
-        const amounts = leaderboardData.stakedAmounts.map((amount: bigint) => ethers.formatEther(amount))
-        const percentages = leaderboardData.percentageOfTotal.map((percentage: bigint) =>
-          (Number(percentage) / 100).toFixed(2),
-        )
+        const addresses = leaderboardData.stakerAddresses;
+        const amounts = leaderboardData.stakedAmounts.map((amount: bigint) =>
+          ethers.formatEther(amount),
+        );
+        const percentages = leaderboardData.percentageOfTotal.map(
+          (percentage: bigint) => (Number(percentage) / 100).toFixed(2),
+        );
 
         setLeaderboard({
           addresses,
           amounts,
           percentages,
-        })
+        });
       } catch (error) {
-        console.error("Error fetching leaderboard:", error)
+        console.error("Error fetching leaderboard:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    fetchLeaderboard()
-  }, [stakingDashboardContract])
+    fetchLeaderboard();
+  }, [stakingDashboardContract]);
 
   const updateLeaderboard = async () => {
-    if (!sETHContract || !isConnected) return
+    if (!sETHContract || !isConnected) return;
 
     try {
-      setIsUpdating(true)
+      setIsUpdating(true);
 
-      const tx = await sETHContract.updateLeaderboard()
+      const tx = await sETHContract.updateLeaderboard();
       toast({
         title: "Transaction Submitted",
         description: "Leaderboard update transaction has been submitted.",
-      })
+      });
 
-      await tx.wait()
+      await tx.wait();
 
       toast({
         title: "Leaderboard Updated",
         description: "The staking leaderboard has been successfully updated.",
-      })
+      });
 
       // Refresh leaderboard data
-      fetchLeaderboard()
+      fetchLeaderboard();
     } catch (error) {
-      console.error("Error updating leaderboard:", error)
+      console.error("Error updating leaderboard:", error);
       toast({
         title: "Update Failed",
-        description: "There was an error updating the leaderboard. Please try again.",
+        description:
+          "There was an error updating the leaderboard. Please try again.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsUpdating(false)
+      setIsUpdating(false);
     }
-  }
+  };
 
   const getTrophyIcon = (index: number) => {
-    if (index === 0) return <Trophy className="h-5 w-5 text-yellow-500" />
-    if (index === 1) return <Medal className="h-5 w-5 text-gray-400" />
-    if (index === 2) return <Award className="h-5 w-5 text-amber-700" />
-    return null
-  }
+    if (index === 0) return <Trophy className="h-5 w-5 text-yellow-500" />;
+    if (index === 1) return <Medal className="h-5 w-5 text-gray-400" />;
+    if (index === 2) return <Award className="h-5 w-5 text-amber-700" />;
+    return null;
+  };
 
   const formatAddress = (address: string) => {
     if (address === account) {
-      return `${address.substring(0, 6)}...${address.substring(address.length - 4)} (You)`
+      return `${address.substring(0, 6)}...${address.substring(address.length - 4)} (You)`;
     }
-    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
-  }
+    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+  };
 
   if (!isConnected) {
-    return null
+    return null;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="page-title">Staking Leaderboard</h2>
-        <Button variant="outline" size="sm" onClick={updateLeaderboard} disabled={isUpdating}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={updateLeaderboard}
+          disabled={isUpdating}
+        >
           {isUpdating ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -168,7 +191,9 @@ export function Leaderboard() {
             {loading ? (
               <Skeleton className="h-8 w-full" />
             ) : (
-              <div className="text-2xl font-bold text-lightblue-900">{stats.totalStakers}</div>
+              <div className="text-2xl font-bold text-lightblue-900">
+                {stats.totalStakers}
+              </div>
             )}
           </CardContent>
         </Card>
@@ -177,7 +202,9 @@ export function Leaderboard() {
       <Card>
         <CardHeader>
           <CardTitle>Top Stakers</CardTitle>
-          <CardDescription>The top stakers by amount of ETH staked</CardDescription>
+          <CardDescription>
+            The top stakers by amount of ETH staked
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
@@ -203,7 +230,9 @@ export function Leaderboard() {
                   <TableRow
                     key={index}
                     className={
-                      address === account ? "bg-lightblue-100 hover:bg-lightblue-200" : "hover:bg-lightblue-50"
+                      address === account
+                        ? "bg-lightblue-100 hover:bg-lightblue-200"
+                        : "hover:bg-lightblue-50"
                     }
                   >
                     <TableCell className="font-medium">
@@ -220,13 +249,18 @@ export function Leaderboard() {
                     </TableCell>
                     <TableCell>
                       {address === account ? (
-                        <span className="font-medium text-lightblue-700">{formatAddress(address)}</span>
+                        <span className="font-medium text-lightblue-700">
+                          {formatAddress(address)}
+                        </span>
                       ) : (
-                        <span className="text-lightblue-800">{formatAddress(address)}</span>
+                        <span className="text-lightblue-800">
+                          {formatAddress(address)}
+                        </span>
                       )}
                     </TableCell>
                     <TableCell className="text-right font-mono text-lightblue-800">
-                      {Number.parseFloat(leaderboard.amounts[index]).toFixed(4)} ETH
+                      {Number.parseFloat(leaderboard.amounts[index]).toFixed(4)}{" "}
+                      ETH
                     </TableCell>
                     <TableCell className="text-right">
                       <Badge
@@ -247,7 +281,9 @@ export function Leaderboard() {
           ) : (
             <div className="text-center py-12 text-lightblue-600">
               <Trophy className="mx-auto h-12 w-12 mb-4 text-lightblue-300" />
-              <p className="text-lg font-medium mb-2 text-lightblue-800">No stakers found</p>
+              <p className="text-lg font-medium mb-2 text-lightblue-800">
+                No stakers found
+              </p>
               <p className="max-w-md mx-auto text-lightblue-600">
                 Be the first to stake and appear on the leaderboard!
               </p>
@@ -256,5 +292,5 @@ export function Leaderboard() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

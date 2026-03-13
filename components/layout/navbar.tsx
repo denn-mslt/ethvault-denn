@@ -1,11 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useWeb3 } from "@/components/web3-provider"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Wallet, LogOut, ChevronDown, ExternalLink, Copy, Check, RefreshCw } from "lucide-react"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useWeb3 } from "@/components/web3-provider";
+import { Button } from "@/components/ui/button";
+import {
+  Menu,
+  X,
+  Wallet,
+  LogOut,
+  ChevronDown,
+  ExternalLink,
+  Copy,
+  Check,
+  RefreshCw,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,13 +23,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-import { ETHVaultLogo } from "@/components/ethvault-logo"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { ETHVaultLogo } from "@/components/ethvault-logo";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function Navbar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const {
     account,
     connectWallet,
@@ -27,11 +42,11 @@ export function Navbar() {
     isConnected,
     networkName,
     refreshBalances,
-  } = useWeb3()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [copied, setCopied] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  } = useWeb3();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const navigation = [
     { name: "Dashboard", href: "/" },
@@ -39,39 +54,39 @@ export function Navbar() {
     { name: "Stake", href: "/stake" },
     { name: "Leaderboard", href: "/leaderboard" },
     { name: "Governance", href: "/governance" },
-  ]
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
+      setScrolled(window.scrollY > 10);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close mobile menu when route changes
   useEffect(() => {
-    setMobileMenuOpen(false)
-  }, [pathname])
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const formatBalance = (balance: string) => {
-    return Number.parseFloat(balance).toFixed(4)
-  }
+    return Number.parseFloat(balance).toFixed(4);
+  };
 
   const copyAddress = () => {
     if (account) {
-      navigator.clipboard.writeText(account)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      navigator.clipboard.writeText(account);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  }
+  };
 
   const handleRefresh = async () => {
-    setIsRefreshing(true)
-    await refreshBalances()
-    setTimeout(() => setIsRefreshing(false), 1000)
-  }
+    setIsRefreshing(true);
+    await refreshBalances();
+    setTimeout(() => setIsRefreshing(false), 1000);
+  };
 
   return (
     <>
@@ -113,7 +128,6 @@ export function Navbar() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <div className="hidden lg:flex items-center space-x-3 bg-lightblue-50 px-4 py-2 rounded-lg">
-                          
                           <Button
                             variant="ghost"
                             size="icon"
@@ -121,7 +135,9 @@ export function Navbar() {
                             onClick={handleRefresh}
                             disabled={isRefreshing}
                           >
-                            <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
+                            <RefreshCw
+                              className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`}
+                            />
                           </Button>
                         </div>
                       </TooltipTrigger>
@@ -133,12 +149,17 @@ export function Navbar() {
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="border-lightblue-200 bg-white hover:bg-lightblue-50">
+                      <Button
+                        variant="outline"
+                        className="border-lightblue-200 bg-white hover:bg-lightblue-50"
+                      >
                         <div className="flex items-center">
                           <div className="flex items-center mr-2">
                             <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
                             <span className="hidden md:inline-block font-medium">
-                              {account ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}` : ""}
+                              {account
+                                ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}`
+                                : ""}
                             </span>
                             <span className="md:hidden">Account</span>
                           </div>
@@ -149,7 +170,10 @@ export function Navbar() {
                     <DropdownMenuContent align="end" className="w-72">
                       <DropdownMenuLabel className="flex items-center justify-between">
                         <span>Connected Wallet</span>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 border-green-200">
+                        <Badge
+                          variant="outline"
+                          className="bg-green-100 text-green-700 border-green-200"
+                        >
                           Connected
                         </Badge>
                       </DropdownMenuLabel>
@@ -157,7 +181,9 @@ export function Navbar() {
 
                       <div className="px-2 py-2">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-lightblue-700">Address</span>
+                          <span className="text-sm font-medium text-lightblue-700">
+                            Address
+                          </span>
                           <div className="flex items-center">
                             <Button
                               variant="ghost"
@@ -165,7 +191,11 @@ export function Navbar() {
                               className="h-6 w-6 text-lightblue-500 hover:text-lightblue-700"
                               onClick={copyAddress}
                             >
-                              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                              {copied ? (
+                                <Check className="h-3.5 w-3.5" />
+                              ) : (
+                                <Copy className="h-3.5 w-3.5" />
+                              )}
                             </Button>
                             <a
                               href={`https://holesky.etherscan.io/address/${account}`}
@@ -178,10 +208,10 @@ export function Navbar() {
                           </div>
                         </div>
                         <div className="bg-lightblue-50 p-2 rounded-md text-sm font-mono mb-3">
-                          {account ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}` : ""}
+                          {account
+                            ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}`
+                            : ""}
                         </div>
-
-                      
                       </div>
 
                       <DropdownMenuSeparator />
@@ -196,7 +226,10 @@ export function Navbar() {
                   </DropdownMenu>
                 </div>
               ) : (
-                <Button onClick={connectWallet} className="bg-white hover:bg-white/90 text-[#67c4ff]">
+                <Button
+                  onClick={connectWallet}
+                  className="bg-white hover:bg-white/90 text-[#67c4ff]"
+                >
                   Connect Wallet
                 </Button>
               )}
@@ -206,17 +239,29 @@ export function Navbar() {
           {/* Mobile Navigation */}
           <div className="flex md:hidden items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <ETHVaultLogo size="sm" showText={true} className="flex" textColor="text-white" />
+              <ETHVaultLogo
+                size="sm"
+                showText={true}
+                className="flex"
+                textColor="text-white"
+              />
             </Link>
 
             <div className="flex items-center gap-4">
               {isConnected ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="bg-white text-lightblue-700 border-lightblue-200">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-white text-lightblue-700 border-lightblue-200"
+                    >
                       <Wallet className="mr-2 h-4 w-4" />
                       <span>Account</span>
-                      <Badge variant="outline" className="ml-2 bg-green-500/20 text-green-500 border-green-500 text-xs">
+                      <Badge
+                        variant="outline"
+                        className="ml-2 bg-green-500/20 text-green-500 border-green-500 text-xs"
+                      >
                         Connected
                       </Badge>
                     </Button>
@@ -225,19 +270,30 @@ export function Navbar() {
                     <DropdownMenuLabel>Wallet Balances</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={disconnectWallet} className="cursor-pointer text-red-500">
+                    <DropdownMenuItem
+                      onClick={disconnectWallet}
+                      className="cursor-pointer text-red-500"
+                    >
                       <LogOut className="mr-2 h-4 w-4" />
                       Disconnect Wallet
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <Button onClick={connectWallet} size="sm" className="bg-white text-[#67c4ff] hover:bg-white/90">
+                <Button
+                  onClick={connectWallet}
+                  size="sm"
+                  className="bg-white text-[#67c4ff] hover:bg-white/90"
+                >
                   Connect Wallet
                 </Button>
               )}
 
-              <button className="navbar-mobile-trigger" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">
+              <button
+                className="navbar-mobile-trigger"
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
                 <Menu className="h-6 w-6" />
               </button>
             </div>
@@ -248,7 +304,11 @@ export function Navbar() {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="mobile-menu animate-fade-in bg-[#67c4ff]/95">
-          <button className="mobile-menu-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+          <button
+            className="mobile-menu-close"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
             <X className="h-6 w-6" />
           </button>
           <div className="mobile-menu-links">
@@ -265,8 +325,8 @@ export function Navbar() {
             {!isConnected && (
               <Button
                 onClick={() => {
-                  connectWallet()
-                  setMobileMenuOpen(false)
+                  connectWallet();
+                  setMobileMenuOpen(false);
                 }}
                 className="mt-4 bg-white text-lightblue-700 hover:bg-lightblue-50"
               >
@@ -280,5 +340,5 @@ export function Navbar() {
       {/* Spacer to prevent content from being hidden under the navbar */}
       <div className="h-14"></div>
     </>
-  )
+  );
 }

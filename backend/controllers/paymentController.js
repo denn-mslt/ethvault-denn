@@ -26,7 +26,7 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
 
   let paytmChecksum = paytm.generateSignature(
     params,
-    process.env.PAYTM_MERCHANT_KEY
+    process.env.PAYTM_MERCHANT_KEY,
   );
   paytmChecksum
     .then(function (checksum) {
@@ -52,7 +52,7 @@ exports.paytmResponse = (req, res, next) => {
   let isVerifySignature = paytm.verifySignature(
     req.body,
     process.env.PAYTM_MERCHANT_KEY,
-    paytmChecksum
+    paytmChecksum,
   );
   if (isVerifySignature) {
     // console.log("Checksum Matched");
@@ -65,7 +65,7 @@ exports.paytmResponse = (req, res, next) => {
     paytm
       .generateSignature(
         JSON.stringify(paytmParams.body),
-        process.env.PAYTM_MERCHANT_KEY
+        process.env.PAYTM_MERCHANT_KEY,
       )
       .then(function (checksum) {
         paytmParams.head = {

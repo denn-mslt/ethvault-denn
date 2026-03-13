@@ -1,15 +1,22 @@
-"use client"
+"use client";
 
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import { useWeb3 } from "@/components/web3-provider"
-import { LayoutDashboard, ArrowDownToLine, ArrowUpFromLine, Trophy, Vote, LogOut } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ETHVaultLogo } from "@/components/ethvault-logo"
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useWeb3 } from "@/components/web3-provider";
+import {
+  LayoutDashboard,
+  ArrowDownToLine,
+  ArrowUpFromLine,
+  Trophy,
+  Vote,
+  LogOut,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ETHVaultLogo } from "@/components/ethvault-logo";
 
 export function Sidebar() {
-  const pathname = usePathname()
-  const { account, isConnected, disconnectWallet } = useWeb3()
+  const pathname = usePathname();
+  const { account, isConnected, disconnectWallet } = useWeb3();
 
   const navigation = [
     {
@@ -42,7 +49,7 @@ export function Sidebar() {
       icon: Vote,
       current: pathname === "/governance",
     },
-  ]
+  ];
 
   return (
     <div className="sidebar">
@@ -54,7 +61,11 @@ export function Sidebar() {
 
       <nav className="mt-6">
         {navigation.map((item) => (
-          <Link key={item.name} href={item.href} className={`sidebar-item ${item.current ? "active" : ""}`}>
+          <Link
+            key={item.name}
+            href={item.href}
+            className={`sidebar-item ${item.current ? "active" : ""}`}
+          >
             <item.icon className="h-5 w-5" />
             <span>{item.name}</span>
           </Link>
@@ -66,7 +77,9 @@ export function Sidebar() {
           <div className="flex items-center gap-2 px-2 py-2 text-xs text-lightblue-600 bg-lightblue-50 rounded-lg">
             <span className="h-2 w-2 rounded-full bg-green-500"></span>
             <span className="truncate">
-              {account ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}` : ""}
+              {account
+                ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}`
+                : ""}
             </span>
           </div>
           <Button
@@ -80,5 +93,5 @@ export function Sidebar() {
         </div>
       )}
     </div>
-  )
+  );
 }

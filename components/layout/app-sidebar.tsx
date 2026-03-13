@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { usePathname } from "next/navigation"
-import Link from "next/link"
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -11,8 +11,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { useWeb3 } from "@/components/web3-provider"
+} from "@/components/ui/sidebar";
+import { useWeb3 } from "@/components/web3-provider";
 import {
   LayoutDashboard,
   ArrowDownToLine,
@@ -22,12 +22,12 @@ import {
   Wallet,
   ExternalLink,
   Github,
-} from "lucide-react"
-import { ETHVaultLogo } from "@/components/ethvault-logo"
+} from "lucide-react";
+import { ETHVaultLogo } from "@/components/ethvault-logo";
 
 export function AppSidebar() {
-  const pathname = usePathname()
-  const { isConnected, account } = useWeb3()
+  const pathname = usePathname();
+  const { isConnected, account } = useWeb3();
 
   const navigation = [
     {
@@ -60,7 +60,7 @@ export function AppSidebar() {
       icon: Vote,
       current: pathname === "/governance",
     },
-  ]
+  ];
 
   return (
     <Sidebar variant="floating" collapsible="icon">
@@ -74,7 +74,11 @@ export function AppSidebar() {
         <SidebarMenu>
           {navigation.map((item) => (
             <SidebarMenuItem key={item.name}>
-              <SidebarMenuButton asChild isActive={item.current} tooltip={item.name}>
+              <SidebarMenuButton
+                asChild
+                isActive={item.current}
+                tooltip={item.name}
+              >
                 <Link href={item.href}>
                   <item.icon className="h-5 w-5" />
                   <span>{item.name}</span>
@@ -97,7 +101,9 @@ export function AppSidebar() {
                 >
                   <Wallet className="h-5 w-5" />
                   <span className="truncate">
-                    {account ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}` : ""}
+                    {account
+                      ? `${account.substring(0, 6)}...${account.substring(account.length - 4)}`
+                      : ""}
                   </span>
                   <ExternalLink className="ml-auto h-4 w-4" />
                 </Link>
@@ -106,7 +112,11 @@ export function AppSidebar() {
           )}
           <SidebarMenuItem>
             <SidebarMenuButton asChild tooltip="GitHub">
-              <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Github className="h-5 w-5" />
                 <span>GitHub</span>
                 <ExternalLink className="ml-auto h-4 w-4" />
@@ -117,5 +127,5 @@ export function AppSidebar() {
         <SidebarTrigger className="absolute bottom-4 right-4 md:hidden" />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

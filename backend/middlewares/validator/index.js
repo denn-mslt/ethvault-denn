@@ -72,7 +72,7 @@ exports.validateSocialLogin = (req, res, next) => {
     .check("socialPhoto", "Invalid photo url.")
     .notEmpty()
     .matches(
-      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
+      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
     );
   req
     .check("loginDomain", "Invalid login domian")

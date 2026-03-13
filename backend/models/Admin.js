@@ -109,7 +109,7 @@ const adminSchema = new mongoose.Schema(
       default: null,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 adminSchema.index({ geolocation: "2dsphere" });
 

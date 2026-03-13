@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import Image from "next/image"
-import { useWeb3 } from "@/components/web3-provider"
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
-import { RefreshCw, Loader2, MoonIcon, SunIcon } from "lucide-react"
-import { AppSidebar } from "@/components/layout/app-sidebar"
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { useWeb3 } from "@/components/web3-provider";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { RefreshCw, Loader2, MoonIcon, SunIcon } from "lucide-react";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,29 +20,37 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const { account, connectWallet, isConnected, ethBalance, dETHBalance, sETHBalance, refreshBalances, networkName } =
-    useWeb3()
-  const { theme, setTheme } = useTheme()
-  const [isRefreshing, setIsRefreshing] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  const pathname = usePathname()
+  const {
+    account,
+    connectWallet,
+    isConnected,
+    ethBalance,
+    dETHBalance,
+    sETHBalance,
+    refreshBalances,
+    networkName,
+  } = useWeb3();
+  const { theme, setTheme } = useTheme();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const handleRefresh = async () => {
-    setIsRefreshing(true)
-    await refreshBalances()
-    setTimeout(() => setIsRefreshing(false), 1000)
-  }
+    setIsRefreshing(true);
+    await refreshBalances();
+    setTimeout(() => setIsRefreshing(false), 1000);
+  };
 
   const formatBalance = (balance: string) => {
-    return Number.parseFloat(balance).toFixed(4)
-  }
+    return Number.parseFloat(balance).toFixed(4);
+  };
 
   return (
     <SidebarProvider>
@@ -74,14 +82,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                       disabled={isRefreshing}
                       className="text-muted-foreground hover:text-foreground"
                     >
-                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+                      <RefreshCw
+                        className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`}
+                      />
                     </Button>
 
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="outline" size="sm" className="gap-2">
                           <span className="hidden md:inline-block">
-                            {account?.substring(0, 6)}...{account?.substring(38)}
+                            {account?.substring(0, 6)}...
+                            {account?.substring(38)}
                           </span>
                           <span className="md:hidden">Account</span>
                           <Badge
@@ -98,19 +109,29 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                         <div className="px-2 py-1.5 text-sm">
                           <div className="flex justify-between mb-1">
                             <span className="text-muted-foreground">ETH:</span>
-                            <span className="font-medium">{formatBalance(ethBalance)}</span>
+                            <span className="font-medium">
+                              {formatBalance(ethBalance)}
+                            </span>
                           </div>
                           <div className="flex justify-between mb-1">
                             <span className="text-muted-foreground">dETH:</span>
-                            <span className="font-medium">{formatBalance(dETHBalance)}</span>
+                            <span className="font-medium">
+                              {formatBalance(dETHBalance)}
+                            </span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-muted-foreground">sETH:</span>
-                            <span className="font-medium">{formatBalance(sETHBalance)}</span>
+                            <span className="font-medium">
+                              {formatBalance(sETHBalance)}
+                            </span>
                           </div>
                         </div>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={handleRefresh} disabled={isRefreshing} className="cursor-pointer">
+                        <DropdownMenuItem
+                          onClick={handleRefresh}
+                          disabled={isRefreshing}
+                          className="cursor-pointer"
+                        >
                           {isRefreshing ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           ) : (
@@ -155,9 +176,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                     height={80}
                     className="rounded-full mb-6"
                   />
-                  <h2 className="text-2xl font-bold mb-2">Connect Your Wallet</h2>
+                  <h2 className="text-2xl font-bold mb-2">
+                    Connect Your Wallet
+                  </h2>
                   <p className="text-muted-foreground mb-6">
-                    Please connect your wallet to access the ETH staking and governance features.
+                    Please connect your wallet to access the ETH staking and
+                    governance features.
                   </p>
                   <Button onClick={connectWallet} size="lg">
                     Connect Wallet
@@ -175,13 +199,22 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <p>ETH Staking & Governance Platform</p>
               </div>
               <div className="flex items-center gap-4">
-                <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  href="/"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Dashboard
                 </Link>
-                <Link href="/deposit" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  href="/deposit"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Deposit
                 </Link>
-                <Link href="/stake" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  href="/stake"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Stake
                 </Link>
               </div>
@@ -190,5 +223,5 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </SidebarProvider>
-  )
+  );
 }
