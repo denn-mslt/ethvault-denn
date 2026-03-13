@@ -1,3 +1,4 @@
+// TODO: Remove this file — duplicate of hooks/use-mobile.tsx, currently unused
 import * as React from "react";
 
 const MOBILE_BREAKPOINT = 768;
