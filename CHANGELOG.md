@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `test:fe`: Vitest + React Testing Library + jsdom
   - `test:be`: Vitest + supertest in Node environment
   - `test`: runs both
+- GitHub Actions CI: prettier (non-blocking), lint, and tests on push/PR
+  - `test`: runs both
 
 ### Fixed
 

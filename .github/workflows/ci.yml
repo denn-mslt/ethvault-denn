@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prettier check
+        run: pnpm prettier --check .
+        continue-on-error: true
+
+      - name: Lint frontend
+        run: pnpm lint:fe
+
+      - name: Lint backend
+        run: pnpm lint:be
+
+      - name: Test frontend
+        run: pnpm test:fe
+
+      - name: Test backend
+        run: pnpm test:be
