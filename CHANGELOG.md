@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Deduplicated `use-toast` hook: removed `components/ui/use-toast.ts`, consolidated to `hooks/use-toast.ts`
 - Resolved trivial backend lint errors: unused vars/imports, unnecessary escapes, useless try/catch, `__dirname` reassignment
 - Added `argsIgnorePattern` / `caughtErrorsIgnorePattern` to backend ESLint config for `_`-prefixed params
+- Suppressed lint errors for stub payment functions (`stripe`, `sendCryptoTransaction`) with TODOs
+- Fixed duplicate key bug in `userHas.js` — `"tobereturned"` status was silently overwritten
 
 ## [0.1.0] - 2026-03-13
 

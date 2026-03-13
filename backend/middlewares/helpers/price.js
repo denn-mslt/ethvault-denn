@@ -36,8 +36,10 @@ const checkImg = async (imgUrl) => {
   }
 };
 
+// TODO: `stripe` is never imported — this is a stub. Either add `const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)` or remove this function.
 const processFiatPayment = async (paymentData) => {
   try {
+    // eslint-disable-next-line no-undef
     const paymentIntent = await stripe.paymentIntents.create({
       amount: paymentData.amount * 100, // Convert to cents
       currency: paymentData.currency,
@@ -52,8 +54,10 @@ const processFiatPayment = async (paymentData) => {
   }
 };
 initPriceConfig();
+// TODO: `sendCryptoTransaction` is never defined or imported — this is a stub. Implement or remove.
 const processCryptoPayment = async (paymentData) => {
   try {
+    // eslint-disable-next-line no-undef
     const tx = await sendCryptoTransaction(
       paymentData.walletAddress,
       paymentData.amount,
