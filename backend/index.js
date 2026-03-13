@@ -1,6 +1,4 @@
 const app = require("./app");
-const connectDatabase = require("./config/database");
-const cloudinary = require("cloudinary");
 const killPort = require("kill-port");
 const getPort = require("get-port").default;
 
@@ -16,7 +14,7 @@ const checkPort = async (port, maxPort = 65535) => {
     await killPort(port, "tcp");
     await killPort(port, "udp");
     return port;
-  } catch (err) {
+  } catch (_err) {
     return checkPort(port + 1, maxPort);
   }
 };

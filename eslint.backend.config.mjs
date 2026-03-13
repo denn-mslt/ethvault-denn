@@ -12,6 +12,10 @@ export default [
         ...globals.node,
       },
     },
+    rules: {
+      ...eslint.configs.recommended.rules,
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
+    },
   },
   {
     files: ["**/public/**/*.js"],

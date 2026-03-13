@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-const Schema = mongoose.Schema;
 const dispatcherSchema = new mongoose.Schema(
   {
     name: {

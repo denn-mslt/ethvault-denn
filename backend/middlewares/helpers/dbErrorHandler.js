@@ -7,7 +7,7 @@ const uniqueMessage = (e) => {
       e.message.lastIndexOf("_1"),
     );
     s = r.charAt(0).toUpperCase() + r.slice(1) + " already exists";
-  } catch (e) {
+  } catch (_e) {
     s = "Unique field already exists";
   }
   return s;

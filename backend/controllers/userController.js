@@ -7,7 +7,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
 // Register User
-exports.registerUser = asyncErrorHandler(async (req, res, next) => {
+exports.registerUser = asyncErrorHandler(async (req, res, _next) => {
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
     folder: "avatars",
     width: 150,
@@ -54,7 +54,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Logout User
-exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
+exports.logoutUser = asyncErrorHandler(async (req, res, _next) => {
   res.cookie("token", null, {
     expires: new Date(Date.now()),
     httpOnly: true,
@@ -67,7 +67,7 @@ exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Get User Details
-exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
+exports.getUserDetails = asyncErrorHandler(async (req, res, _next) => {
   const user = await User.findById(req.user.id);
 
   res.status(200).json({
@@ -157,7 +157,7 @@ exports.updatePassword = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Update User Profile
-exports.updateProfile = asyncErrorHandler(async (req, res, next) => {
+exports.updateProfile = asyncErrorHandler(async (req, res, _next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
@@ -196,7 +196,7 @@ exports.updateProfile = asyncErrorHandler(async (req, res, next) => {
 // ADMIN DASHBOARD
 
 // Get All Users --ADMIN
-exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
+exports.getAllUsers = asyncErrorHandler(async (req, res, _next) => {
   const users = await User.find();
 
   res.status(200).json({
@@ -221,7 +221,7 @@ exports.getSingleUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Update User Role --ADMIN
-exports.updateUserRole = asyncErrorHandler(async (req, res, next) => {
+exports.updateUserRole = asyncErrorHandler(async (req, res, _next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,

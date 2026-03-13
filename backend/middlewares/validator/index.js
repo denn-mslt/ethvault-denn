@@ -2,14 +2,12 @@ const ProductBrand = require("../../models/ProductBrand");
 const ProductImages = require("../../models/ProductImages");
 const Category = require("../../models/Category");
 const _ = require("lodash");
-const path = require("path");
-const fs = require("fs");
 const { districts } = require("../common");
 exports.validateLead = (req, res, next) => {
   // email is not null, valid and normalized
   req
     .check("email", "Email must be between 3 to 32 characters")
-    .matches(/.+\@.+\..+/)
+    .matches(/.+@.+\..+/)
     .withMessage("Invalid email")
     .isLength({
       min: 4,
@@ -31,7 +29,7 @@ exports.validateSignUp = (req, res, next) => {
   // email is not null, valid and normalized
   req
     .check("email", "Email must be between 3 to 32 characters")
-    .matches(/.+\@.+\..+/)
+    .matches(/.+@.+\..+/)
     .withMessage("Invalid email")
     .isLength({
       min: 4,
@@ -61,7 +59,7 @@ exports.validateSocialLogin = (req, res, next) => {
   // email is not null, valid and normalized
   req
     .check("email", "Email must be between 3 to 32 characters")
-    .matches(/.+\@.+\..+/)
+    .matches(/.+@.+\..+/)
     .withMessage("Invalid email")
     .isLength({
       min: 4,
@@ -72,7 +70,8 @@ exports.validateSocialLogin = (req, res, next) => {
     .check("socialPhoto", "Invalid photo url.")
     .notEmpty()
     .matches(
-      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+      // eslint-disable-next-line no-useless-escape
+      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
     );
   req
     .check("loginDomain", "Invalid login domian")
@@ -94,7 +93,7 @@ const validatedispatcher = (req) => {
   // email is not null, valid and normalized
   req
     .check("email", "Email must be between 3 to 32 characters")
-    .matches(/.+\@.+\..+/)
+    .matches(/.+@.+\..+/)
     .withMessage("Invalid email")
     .isLength({
       min: 4,
@@ -272,7 +271,7 @@ exports.validateProduct = async (req, res, next) => {
   images = await ProductImages.find()
     .where("_id")
     .in(images)
-    .catch((err) => errors.push({ msg: "Invalid image ids" })); // catch will execute if invalid ids
+    .catch((_err) => errors.push({ msg: "Invalid image ids" })); // catch will execute if invalid ids
   // if some id are invalid
   // e.g out of 3 images 1 is not valid the images.length = 2 bcoz 2 are only vaild so shld return error..
   if (

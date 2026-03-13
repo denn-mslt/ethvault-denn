@@ -5,7 +5,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
 
 // Get All Products
-exports.getAllProducts = asyncErrorHandler(async (req, res, next) => {
+exports.getAllProducts = asyncErrorHandler(async (req, res, _next) => {
   const resultPerPage = 12;
   const productsCount = await Product.countDocuments();
   // console.log(req.query);
@@ -30,7 +30,7 @@ exports.getAllProducts = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Get All Products ---Product Sliders
-exports.getProducts = asyncErrorHandler(async (req, res, next) => {
+exports.getProducts = asyncErrorHandler(async (req, res, _next) => {
   const products = await Product.find();
   res.status(200).json({
     success: true,
@@ -51,7 +51,7 @@ exports.getProductDetails = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Get All Products ---ADMIN
-exports.getAdminProducts = asyncErrorHandler(async (req, res, next) => {
+exports.getAdminProducts = asyncErrorHandler(async (req, res, _next) => {
   const products = await Product.find();
   res.status(200).json({
     success: true,
@@ -60,7 +60,7 @@ exports.getAdminProducts = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Create Product ---ADMIN
-exports.createProduct = asyncErrorHandler(async (req, res, next) => {
+exports.createProduct = asyncErrorHandler(async (req, res, _next) => {
   let images = [];
   if (typeof req.body.images === "string") {
     images.push(req.body.images);

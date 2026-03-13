@@ -54,9 +54,10 @@ pnpm dev          # starts both frontend (Next.js) and backend (Express) via con
 6. **One concern per change.** Each change should address a single concern. Don't bundle unrelated fixes together.
 7. **Always run linter and tests after changing code.** After every code change, run the linter and test suite before considering the task done. Fix any issues before moving on.
 8. **Verify, don't assume.** If no tests exist for the area you changed, suggest adding them.
-9. **Preserve existing patterns.** Match the style, naming conventions, and architecture already in the codebase. Don't introduce new patterns without discussion.
-10. **Be explicit about uncertainty.** If you're unsure about the impact of a change or the correct approach, say so. Propose options rather than guessing.
-11. **No secrets in code.** Never hardcode API keys, private keys, passwords, or other secrets. Use environment variables.
+9. **Be extra careful refactoring untested code.** When changing code without test coverage, always double-check that behavior is preserved. Prefer suppressing lint warnings (e.g., eslint-disable) over modifying logic/regex/behavior if you cannot verify correctness.
+10. **Preserve existing patterns.** Match the style, naming conventions, and architecture already in the codebase. Don't introduce new patterns without discussion.
+11. **Be explicit about uncertainty.** If you're unsure about the impact of a change or the correct approach, say so. Propose options rather than guessing.
+12. **No secrets in code.** Never hardcode API keys, private keys, passwords, or other secrets. Use environment variables.
 
 ---
 

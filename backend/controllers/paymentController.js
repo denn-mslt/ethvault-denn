@@ -8,7 +8,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const { v4: uuidv4 } = require("uuid");
 
 // Process Payment
-exports.processPayment = asyncErrorHandler(async (req, res, next) => {
+exports.processPayment = asyncErrorHandler(async (req, res, _next) => {
   const { amount, email, phoneNo } = req.body;
   var params = {};
   /* initialize an array */
@@ -45,7 +45,7 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
 });
 
 // Paytm Callback
-exports.paytmResponse = (req, res, next) => {
+exports.paytmResponse = (req, res, _next) => {
   // console.log(req.body);
   let paytmChecksum = req.body.CHECKSUMHASH;
   delete req.body.CHECKSUMHASH;
@@ -117,7 +117,7 @@ exports.paytmResponse = (req, res, next) => {
 const addPayment = async (data) => {
   try {
     await Payment.create(data);
-  } catch (error) {
+  } catch (_error) {
     console.log("Payment Failed!");
   }
 };

