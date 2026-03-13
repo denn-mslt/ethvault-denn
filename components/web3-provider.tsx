@@ -153,9 +153,9 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({
               params: [{ chainId: `0x${HOLESKY_CHAIN_ID.toString(16)}` }],
             });
             console.log("Successfully switched network");
-          } catch (switchError: any) {
+          } catch (switchError: unknown) {
             // If network hasn't been added, add it to wallet
-            if (switchError.code === 4902) {
+            if (switchError instanceof Error && (switchError as Error & { code?: number }).code === 4902) {
               console.log("Network not found, adding network...");
               await window.ethereum.request({
                 method: "wallet_addEthereumChain",

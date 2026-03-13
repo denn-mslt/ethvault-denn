@@ -66,8 +66,8 @@ export function StakingDashboard() {
             ) {
               const callRes = await providerInstance.call({
                 to:
-                  (stakingDashboardContract as any).target ??
-                  (stakingDashboardContract as any).address,
+                  (stakingDashboardContract as unknown as { target?: string; address?: string }).target ??
+                  (stakingDashboardContract as unknown as { target?: string; address?: string }).address,
                 data,
               });
               console.log("provider.call result (raw):", callRes);
